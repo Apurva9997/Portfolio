@@ -3,23 +3,20 @@ var path = require('path');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 const WebpackAssetsManifest = require('webpack-manifest-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-// const reactLoadablePlugin = require('react-loadable/webpack')
-//   .ReactLoadablePlugin;
 
 var env = 'production';
 
 module.exports = {
   mode: env,
-  entry: path.join(__dirname, '../../client/index.js'),
+  entry: path.join(__dirname, './index.js'),
   output: {
     filename: '[name].bundle.[hash].js',
     chunkFilename: '[name].bundle.[hash].js',
-    path: path.join(__dirname, '../../build'),
-    publicPath: process.env.PWA_PROD_REACT_CDN_URL
+    path: path.join(__dirname, '/build'),
+    publicPath: '/'
   },
   optimization: {
     splitChunks: {
@@ -78,15 +75,12 @@ module.exports = {
     new webpack.EnvironmentPlugin({
 
     }),
-    new CleanWebpackPlugin({
-      path: path.join(__dirname, '../../build')
-    }),
     new WebpackAssetsManifest({
       fileName: 'asset-manifest.json'
     }),
     new HtmlWebpackPlugin({
-      title: 'ZoloStays',
-      template: 'client/public/main.html',
+      title: 'Apurva - Portfolio',
+      template: 'public/main.html',
       filename: 'main.html',
       minify: {
         collapseWhitespace: false,
@@ -97,27 +91,22 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'style.[contenthash].css'
     }),
-    new CopyPlugin([
-      {
-        from: 'client/public',
-        to: 'public'
-      }
-    ]),
-    new CopyPlugin([
-      {
-        from: 'client/public/offline.html',
-        to: ''
-      }
-    ]),
+    // new CopyPlugin([
+    //   {
+    //     from: 'client/public',
+    //     to: 'public'
+    //   }
+    // ]),
+
     // new reactLoadablePlugin({
     //   filename: './react-loadable.json'
     // }),
     new InterpolateHtmlPlugin({
-      NODE_ENV: 'production',
+      // NODE_ENV: 'production',
     })
   ],
   devServer: {
-    contentBase: path.join(__dirname, '../../build'),
+    contentBase: path.join(__dirname, '/build'),
     filename: 'main.html',
     compress: true,
     port: 9000,
