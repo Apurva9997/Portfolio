@@ -4,7 +4,8 @@
   "description": "Personal portfolio",
   "main": "index.js",
   "scripts": {
-    "start": "webpack --config webpack.config.prod.js"
+    "start": "webpack-dev-server --config webpack.config.prod.js --port 8000",
+    "build": "webpack --config webpack.config.prod.js"
   },
   "repository": {
     "type": "git",

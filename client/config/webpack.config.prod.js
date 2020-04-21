@@ -91,12 +91,12 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'style.[contenthash].css'
     }),
-    // new CopyPlugin([
-    //   {
-    //     from: 'client/public',
-    //     to: 'public'
-    //   }
-    // ]),
+    new CopyPlugin([
+      {
+        from: 'assets',
+        to: 'assets'
+      }
+    ]),
 
     // new reactLoadablePlugin({
     //   filename: './react-loadable.json'
