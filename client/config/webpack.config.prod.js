@@ -11,11 +11,11 @@ var env = 'production';
 
 module.exports = {
   mode: env,
-  entry: path.join(__dirname, './index.js'),
+  entry: path.join(__dirname, '../index.js'),
   output: {
     filename: '[name].bundle.[hash].js',
     chunkFilename: '[name].bundle.[hash].js',
-    path: path.join(__dirname, '/build'),
+    path: path.join(__dirname, '../../build'),
     publicPath: '/'
   },
   optimization: {
@@ -37,6 +37,7 @@ module.exports = {
       }
     }
   },
+  devtool: 'eval-source-map',
   module: {
     rules: [
       {
@@ -61,8 +62,35 @@ module.exports = {
           'style-loader',
           MiniCssExtractPlugin.loader,
           'css-loader',
-          'postcss-loader',
           'sass-loader'
+        ]
+      },
+      {
+        test: /\.less$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: "less-loader",
+            options: {
+              javascriptEnabled: true
+            }
+          }
+        ]
+      },
+      {
+        test: /\.svg$/,
+        use: 'file-loader'
+      },
+      {
+        test: /\.png$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              mimetype: 'image/png'
+            }
+          }
         ]
       }
     ]
@@ -81,7 +109,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'Apurva - Portfolio',
       template: 'public/main.html',
-      filename: 'main.html',
+      appMountId: 'app',
       minify: {
         collapseWhitespace: false,
         removeComments: true,
@@ -93,7 +121,7 @@ module.exports = {
     }),
     new CopyPlugin([
       {
-        from: 'assets',
+        from: 'public/assets',
         to: 'assets'
       }
     ]),
@@ -106,9 +134,7 @@ module.exports = {
     })
   ],
   devServer: {
-    contentBase: path.join(__dirname, '/build'),
-    filename: 'main.html',
-    compress: true,
+    contentBase: path.join(__dirname, '../../build'),
     port: 9000,
     historyApiFallback: true
   }

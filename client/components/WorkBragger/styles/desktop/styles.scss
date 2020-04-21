@@ -1,0 +1,6 @@
+.work_bragger_parent {
+  padding-top: 5px;
+  & > div:not(:last-child) {
+    border-bottom: 2px solid white;
+  }
+}
