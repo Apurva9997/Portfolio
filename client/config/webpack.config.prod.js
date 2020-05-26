@@ -7,7 +7,7 @@ const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 const WebpackAssetsManifest = require('webpack-manifest-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
-var env = 'production';
+var env = 'development';
 
 module.exports = {
   mode: env,
